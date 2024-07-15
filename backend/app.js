@@ -15,7 +15,7 @@ model.init()
 const server = new Koa()
 
 if (runMode === 'app') {
-
+  
   server.use(
     koaBody({
       includeUnparsed: true,
