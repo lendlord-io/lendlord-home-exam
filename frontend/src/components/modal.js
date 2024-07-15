@@ -19,7 +19,18 @@ function Modal({ closeModal, displayModal, id, children, selectedUser }) {
         ...selectedUser,
         dateStarted: selectedUser.dateStarted ? new Date(selectedUser.dateStarted).toISOString().split('T')[0] : ''
       });
+    } else {
+      setUser({
+        firstName: '',
+        lastName: '',
+        email: '',
+        dateStarted: '',
+        role: '',
+        salary: '',
+        manager: ''
+      });
     }
+
   }, [selectedUser]);
 
   const handleKeyUp = useCallback(
@@ -40,23 +51,40 @@ function Modal({ closeModal, displayModal, id, children, selectedUser }) {
     closeModal();
   };
 
+
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const isValidObjectId = (id) => {
+    return /^[0-9a-fA-F]{24}$/.test(id);
+  }
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const userToSend = { ...user };
+  
+      if (userToSend.manager && !isValidObjectId(userToSend.manager)) {
+        alert("Manager ID is not valid!");
+        return;
+      }
+  
+      if (!userToSend.manager) {
+        userToSend.manager = null; 
+      }
+  
       if (selectedUser) {
-        await axios.put(`http://localhost:3000/user/${user._id}`, user);
+        await axios.put(`http://localhost:3000/user/email/${user.email}`, userToSend); 
       } else {
-        await axios.post('http://localhost:3000/user', user);
+        await axios.post('http://localhost:3000/user', userToSend);
       }
       closeModal();
     } catch (err) {
       console.error('Failed to save user', err);
     }
   };
+  
 
   const divStyle = {
     display: displayModal ? 'block' : 'none'

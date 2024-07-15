@@ -19,11 +19,15 @@ const UsersTable = ({ toggleModal }) => {
   }, []);
 
   const handleDelete = async (id) => {
+    console.log(`Attempting to delete user with id: ${id}`);
     try {
-      await axios.delete(`http://localhost:3000/user/${id}`);
+      const response = await axios.delete(`http://localhost:3000/user/${id}`);
+      console.log('Delete response:', response); 
       setUsers(users.filter(user => user._id !== id));
+      console.log(`User with id: ${id} deleted successfully`); 
     } catch (err) {
       setError('Failed to delete user');
+      console.error('Error deleting user:', err);  
     }
   };
 
@@ -55,7 +59,7 @@ const UsersTable = ({ toggleModal }) => {
               <td>{user.manager ? user.manager.firstName + ' ' + user.manager.lastName : 'N/A'}</td>
               <td>
                 <button onClick={() => toggleModal(user)}>Edit</button>
-                <button onClick={() => handleDelete(user._id)}>Delete</button>
+                <button onClick={(e) => handleDelete(user._id)}>Delete</button>
               </td>
             </tr>
           ))}

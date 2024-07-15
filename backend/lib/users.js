@@ -31,8 +31,6 @@ class Users {
     return await this.repo.find(query);
   }
 
-
-
 }
 
 
