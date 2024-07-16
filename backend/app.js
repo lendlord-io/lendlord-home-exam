@@ -15,7 +15,7 @@ model.init()
 const server = new Koa()
 
 if (runMode === 'app') {
-
+  
   server.use(
     koaBody({
       includeUnparsed: true,
@@ -32,10 +32,10 @@ if (runMode === 'app') {
 
   server.use(
     koaCors({
+      origin: '*',
       methods: 'POST, GET, PUT, DELETE, OPTIONS',
       allowMethods: 'Origin, X-Requested-With, Content-Type, Accept',
       credentials: true,
-      origin: '*'
     })
   )
 

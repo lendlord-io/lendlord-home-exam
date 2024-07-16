@@ -10,6 +10,27 @@ class Users {
     const user = await this.repo.findOne(query)
     return user
   }
+
+  async findAllUsers() {
+    return await this.repo.findAll();
+  }
+
+  async createUser(userData) {
+    return await this.repo.create(userData);
+  }
+
+  async updateUser(query, updateData) {
+    return await this.repo.update(query, updateData);
+  }
+
+  async deleteUser(query) {
+    return await this.repo.delete(query);
+  }
+
+  async findUsers(query) {
+    return await this.repo.find(query);
+  }
+
 }
 
 

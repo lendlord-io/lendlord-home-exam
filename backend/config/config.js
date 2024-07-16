@@ -21,13 +21,13 @@ global.log = bunyan.createLogger({
 
 var config = {
   default: {
-    database: '',
+    database: 'mongodb+srv://ofek1234:ofek1403@cluster0.sedqoku.mongodb.net/',
     appUrl: 'http://localhost:3002',
     ports: {
       app: 3000
     },
-  }
-}
+  },
+};
 
 exports.get = function get(env) {
   const obj = {}
